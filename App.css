@@ -1,0 +1,498 @@
+/* ================================================================
+   POMODORO TIMER — COMPONENT STYLES
+   Premium glassmorphism UI with rich animations
+   ================================================================ */
+
+/* ===== LAYOUT ===== */
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 1;
+  gap: 2rem;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ===== HEADER ===== */
+.header {
+  text-align: center;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.header__icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.35rem;
+  display: block;
+  animation: tomatoBounce 3s ease-in-out infinite;
+}
+
+@keyframes tomatoBounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-4px) rotate(-3deg); }
+  75% { transform: translateY(-2px) rotate(3deg); }
+}
+
+.header__title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header__subtitle {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+/* ===== MODE TABS ===== */
+.mode-tabs {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.3rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  animation: fadeInUp 0.8s ease-out 0.1s both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.mode-tab {
+  position: relative;
+  z-index: 1;
+  padding: 0.6rem 1.25rem;
+  border: none;
+  border-radius: 0.75rem;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.35s ease, transform 0.2s ease;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.mode-tab:hover:not(.mode-tab--active) {
+  color: var(--text-primary);
+  transform: scale(1.03);
+}
+
+.mode-tab--active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  box-shadow:
+    0 2px 12px var(--accent-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: scale(1);
+}
+
+.mode-tab--active:hover {
+  transform: scale(1.02);
+}
+
+/* ===== TIMER CARD ===== */
+.timer-card {
+  width: 100%;
+  padding: 2.5rem 2rem 2rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 2rem;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.2),
+    0 0 80px -20px var(--ring-shadow);
+  transition: box-shadow 0.8s ease;
+}
+
+/* Subtle inner glow */
+.timer-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-1), var(--accent-2), transparent);
+  opacity: 0.5;
+}
+
+/* ===== TIMER RING ===== */
+.timer-ring-wrapper {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  filter: drop-shadow(0 0 15px var(--accent-glow));
+  transition: filter 0.5s ease;
+}
+
+.timer-ring-svg--active {
+  filter: drop-shadow(0 0 25px var(--accent-glow));
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { filter: drop-shadow(0 0 20px var(--accent-glow)); }
+  50%      { filter: drop-shadow(0 0 35px var(--accent-glow)); }
+}
+
+.timer-ring__track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.04);
+  stroke-width: 6;
+}
+
+.timer-ring__progress {
+  fill: none;
+  stroke: url(#ringGradient);
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.4s ease;
+}
+
+/* ===== TIMER DISPLAY ===== */
+.timer-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  z-index: 1;
+}
+
+.timer-time {
+  font-family: var(--font-mono);
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--text-primary);
+  text-shadow: 0 0 40px var(--accent-glow);
+  transition: text-shadow 0.5s ease;
+  tabular-nums: true;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-time--active {
+  text-shadow: 0 0 60px var(--accent-glow);
+}
+
+.timer-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent-1);
+  opacity: 0.8;
+  transition: color 0.5s ease;
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  position: relative;
+  border: none;
+  border-radius: 1rem;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+}
+
+.btn:active {
+  transform: scale(0.95) !important;
+}
+
+/* Primary (Start / Pause) */
+.btn--primary {
+  padding: 0.9rem 2.8rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  box-shadow:
+    0 4px 20px var(--accent-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow:
+    0 8px 30px var(--accent-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn--primary:focus-visible {
+  outline: 2px solid var(--accent-1);
+  outline-offset: 3px;
+}
+
+/* Secondary (Reset) */
+.btn--secondary {
+  padding: 0.9rem 1.4rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.btn--secondary:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn--secondary:focus-visible {
+  outline: 2px solid var(--text-tertiary);
+  outline-offset: 3px;
+}
+
+/* ===== SESSION COUNTER ===== */
+.sessions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem 1.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  animation: fadeInUp 0.8s ease-out 0.35s both;
+}
+
+.sessions__block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.sessions__value {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.sessions__label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.sessions__divider {
+  width: 1px;
+  height: 32px;
+  background: var(--glass-border);
+}
+
+.sessions__dots {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.sessions__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--glass-border);
+  background: transparent;
+  transition: all 0.4s ease;
+}
+
+.sessions__dot--filled {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  border-color: var(--accent-1);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* ===== KEYBOARD HINTS ===== */
+.keyboard-hints {
+  display: flex;
+  gap: 1.5rem;
+  animation: fadeInUp 0.8s ease-out 0.5s both;
+}
+
+.kbd-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.45rem;
+  min-width: 1.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.35rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== COMPLETION FLASH ===== */
+.completion-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: radial-gradient(circle at center, var(--accent-glow), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  animation: flashPulse 0.8s ease-out forwards;
+}
+
+@keyframes flashPulse {
+  0%   { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+/* ===== MODE TRANSITION ===== */
+.app {
+  transition: --accent-1 0.8s ease, --accent-2 0.8s ease;
+}
+
+/* Since CSS custom properties can't be transitioned natively,
+   we rely on class-based transitions on child elements */
+.timer-card,
+.btn--primary,
+.mode-tab--active,
+.timer-time,
+.timer-label,
+.sessions__dot--filled {
+  transition-duration: 0.6s;
+  transition-timing-function: ease;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .app {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .timer-ring-wrapper {
+    width: 240px;
+    height: 240px;
+  }
+
+  .timer-time {
+    font-size: 3.2rem;
+  }
+
+  .header__title {
+    font-size: 1.3rem;
+  }
+
+  .mode-tab {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.72rem;
+  }
+
+  .timer-card {
+    padding: 2rem 1.5rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .btn--primary {
+    padding: 0.8rem 2.2rem;
+    font-size: 0.85rem;
+  }
+
+  .keyboard-hints {
+    display: none;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .timer-ring-wrapper {
+    width: 260px;
+    height: 260px;
+  }
+
+  .timer-time {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .timer-ring-wrapper {
+    width: 300px;
+    height: 300px;
+  }
+
+  .timer-time {
+    font-size: 4.5rem;
+  }
+
+  .timer-card {
+    padding: 3rem 2.5rem 2.5rem;
+  }
+}
